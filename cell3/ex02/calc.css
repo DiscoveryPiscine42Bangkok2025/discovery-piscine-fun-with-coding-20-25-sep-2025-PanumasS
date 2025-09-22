@@ -1,0 +1,19 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 24px;
+}
+
+.calc {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+input[type="text"] {
+  width: 120px;
+  padding: 6px;
+}
+
+select, input[type="submit"] {
+  padding: 6px 10px;
+}
