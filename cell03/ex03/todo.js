@@ -13,35 +13,36 @@ function getCookie(name) {
 const COOKIE_NAME = "todos_ex03";
 let todos = [];
 
-const $listEl = $("#ft_list");
-const $newBtn = $("#newBtn");
-const $emptyHint = $("#emptyHint");
+const listEl = document.getElementById("ft_list");
+const newBtn = document.getElementById("newBtn");
+const emptyHint = document.getElementById("emptyHint");
 
 function render() {
-  $listEl.empty();
+  listEl.innerHTML = ""; // แทน .empty()
 
   if (todos.length === 0) {
-    $emptyHint.prop("hidden", false);
+    emptyHint.hidden = false;
     return;
   }
 
-  $emptyHint.prop("hidden", true);
+  emptyHint.hidden = true;
 
   todos.forEach((t) => {
-    const $div = $("<div>")
-      .addClass("todo")
-      .attr("data-id", t.id)
-      .attr("title", "Click to remove")
-      .text(t.text)
-      .on("click", () => {
-        if (confirm("Do you want to remove that TO DO?")) {
-          todos = todos.filter((x) => x.id !== t.id);
-          persist();
-          render();
-        }
-      });
+    const div = document.createElement("div");
+    div.className = "todo";
+    div.dataset.id = t.id;
+    div.title = "Click to remove";
+    div.textContent = t.text;
 
-    $listEl.prepend($div);
+    div.addEventListener("click", () => {
+      if (confirm("Do you want to remove that TO DO?")) {
+        todos = todos.filter((x) => x.id !== t.id);
+        persist();
+        render();
+      }
+    });
+
+    listEl.prepend(div);
   });
 }
 
@@ -59,7 +60,7 @@ function persist() {
   render();
 })();
 
-$newBtn.on("click", () => {
+newBtn.addEventListener("click", () => {
   const text = prompt("Enter a new TO DO:");
   if (text === null) return;
   const trimmed = text.trim();
